@@ -1,0 +1,9 @@
+1)https://hall-booking-three.vercel.app/
+
+2)https://hall-booking-three.vercel.app/booking/room/6440ecbe8649f611f5c4bd1c
+
+3)https://hall-booking-three.vercel.app/booking/allrooms
+
+4)https://hall-booking-three.vercel.app/booking/allbookedrooms
+
+5)https://hall-booking-three.vercel.app/booking/counting
