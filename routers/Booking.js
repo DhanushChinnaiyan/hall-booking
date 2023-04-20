@@ -6,7 +6,7 @@ const router = express.Router();
 
 // QN:2-Booking Room:
 
-router.post("/:id", async (request, response) => {
+router.post("/room/:id", async (request, response) => {
   try {
     const postDate = new Date().toLocaleString();
     const alreadyBooked = await BookingRoom.find({
