@@ -8,25 +8,26 @@ const router = express.Router();
 
 router.post("/room/:id", async (request, response) => {
   try {
-    const postDate = new Date().toLocaleString();
     const alreadyBooked = await BookingRoom.find({
       RoomId: request.params.id,
-      EndTime: { $gt: postDate },
+      EndTime: { $gt: new Date().toJSON() }
     });
 
-    if (alreadyBooked.length > 0) {
+
+    if (alreadyBooked.length !== 0) {
       return response.status(400).json({
         message: `Please try to book the room after ${alreadyBooked[0].EndTime}`,
       });
     }
-    if (request.body.StartTime < postDate || request.body.EndTime < postDate) {
+
+    if (request.body.StartTime <  new Date().toJSON() || request.body.EndTime <  new Date().toJSON()) {
       return response.status(400).json({ message: "Error booking room" });
     }
     const bookedRoom = await new BookingRoom({
       CustomerName: request.body.CustomerName,
-      Date: postDate,
-      StartTime: request.body.StartTime,
-      EndTime: request.body.EndTime,
+      Date: new Date(),
+      StartTime:request.body.StartTime,
+      EndTime:request.body.EndTime,
       RoomId: request.params.id,
     }).save();
 
@@ -44,7 +45,7 @@ router.post("/room/:id", async (request, response) => {
 
 router.get("/allrooms", async (request, response) => {
   try {
-    const postDate = new Date().toLocaleString();
+    const postDate = new Date();
     const allrooms = await Room.find();
     const allroomIds = [];
     const bookedIds = [];
@@ -80,11 +81,11 @@ router.get("/allrooms", async (request, response) => {
 
 router.get("/allbookedrooms", async (request, response) => {
   try {
-    const postDate = new Date().toLocaleString();
-
+    const postDate = new Date().toJSON();
     const alreadyBooked = await BookingRoom.find({
       EndTime: { $gt: postDate },
     });
+
     if (alreadyBooked.length === 0) {
       return response.status(400).json({ message: "Rooms Not Booked" });
     }
@@ -112,7 +113,7 @@ router.get("/counting", async (request, response) => {
     });
 
     const fulldetails = [];
-    const postDate = new Date().toLocaleString();
+    const postDate = new Date();
     originalNmaes.map((names) => {
       const details = [];
       for (let index = 0; index < alltimebokedstatus.length; index++) {

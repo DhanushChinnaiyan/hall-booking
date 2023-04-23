@@ -11,7 +11,6 @@ app.use(express.json())
 
 // database connection 
 dataBaseConnection()
-// console.log(new Date().toLocaleString())
 
 // Routers
 

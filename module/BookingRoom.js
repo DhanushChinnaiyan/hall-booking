@@ -8,15 +8,15 @@ const BokkingSchema = new mongoose.Schema(
             required:true,
         },
         Date:{
-            type:String,
+            type:Date,
             required:true
         },
         StartTime:{
-            type:String,
+            type:Date,
             required:true
         },
         EndTime:{
-            type:String,
+            type:Date,
             required:true
         },
         RoomId:{
